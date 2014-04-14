@@ -7,6 +7,7 @@
 //
 
 #import "AttributorViewController.h"
+#import "StatisticsViewController.h"
 
 @interface AttributorViewController ()
 
@@ -65,6 +66,16 @@
     self.headline.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Analyze Text"]) {
+        if ([segue.destinationViewController isKindOfClass:[StatisticsViewController class]]) {
+            StatisticsViewController *svc = (StatisticsViewController *) segue.destinationViewController;
+            svc.textToAnalyze = self.body.textStorage;
+        }
+    }
+}
+
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -77,5 +88,7 @@
     [self.body.textStorage removeAttribute:NSStrokeWidthAttributeName
                                      range:self.body.selectedRange];
 }
+
+
 
 @end
